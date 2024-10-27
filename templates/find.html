@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>立體停車場</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        // 停车位的初始 x 和 y 坐标
+        let initialX = 115; // 第一個停車位的 x 坐標
+        let initialY = 550; // 第一個停車位的 y 坐標
+
+        // 验证表单输入
+        function validateForm() {
+            var plateNumber = document.getElementById("plate-input").value.trim();
+            if (plateNumber === "") {
+                alert("車牌號碼不可為空白！請重新輸入。");
+                return false; // 阻止表单提交
+            }
+            if (!/^\d+$/.test(plateNumber)) {
+                alert("請輸入有效的車牌號碼（只需號碼）！");
+                return false; // 阻止表单提交
+            }
+            return true; // 允许表单提交
+        }
+
+        // 切换到下层图片
+        function changeToLowerImage() {
+            var image = document.getElementById('parking-lot-image');
+            image.src = "{{ url_for('static', filename='images/map14no.png') }}"; // 替换为下层的图片
+        }
+
+        // 切换到上层图片
+        function changeToUpperImage() {
+            var image = document.getElementById('parking-lot-image');
+            image.src = "{{ url_for('static', filename='images/map13no.png') }}"; // 替换为上层的图片
+        }
+
+        // 返回主页
+        function goBack() {
+            window.location.href = "{{ url_for('index') }}"; // 使用 url_for 生成首页的 URL
+        }
+
+        // 更新标记位置的函数
+        function updateMapMarker(x, y) {
+            const container = document.querySelector('.image-container');
+            let marker = document.querySelector('.marker');
+
+            // 如果标记尚未存在，创建标记
+            if (!marker) {
+                marker = document.createElement('div');
+                marker.className = 'marker';
+                marker.style.position = 'absolute';
+                marker.innerHTML = '<img src="static/images/people.png" alt="car2" style="width:30px;height:30px;">'; // 使用图片作为标记
+                container.appendChild(marker);
+            }
+
+            // 设置标记的位置
+            marker.style.left = `${x}px`;
+            marker.style.top = `${y}px`;
+
+            console.log(`标记已移动到: (${x}, ${y})`);
+        }
+
+        // 页面加载完成时，将标记放在起始位置
+        window.onload = function() {
+            updateMapMarker(initialX, initialY);
+        };
+    </script>
+</head>
+<body>
+    <div class="image-container">
+        <img id="parking-lot-image" src="{{ url_for('static', filename='images/map13no.png') }}" alt="停車場" />
+        <div class="button-container">
+            <button class="overlay-button" onclick="changeToLowerImage()">下層</button>
+            <button class="overlay-button" onclick="changeToUpperImage()">上層</button>
+            <button class="overlay-button" onclick="goBack()">返回</button>
+        </div>
+    </div>
+
+    <!-- 車牌號碼輸入表單 -->
+    <div id="parking-form">
+        <form id="plate-form" action="/enter" method="POST" onsubmit="return validateForm()">
+            <label for="plate-input">車牌號碼:</label>
+            <input type="text" name="plate_number" id="plate-input" placeholder="請輸入車牌號碼" />
+            <div class="form-buttons">
+                <button type="submit">確定</button>
+                <button type="button" onclick="document.getElementById('parking-form').style.display='none'">取消</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

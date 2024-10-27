@@ -1,0 +1,113 @@
+<!DOCTYPE html> 
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>立體停車場</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        // JavaScript 函數來切換到下層圖片
+        function changeToLowerImage() {
+            var image = document.getElementById('parking-lot-image');
+            image.src = "{{ url_for('static', filename='images/map14.png') }}"; // 替換為下層的圖片
+        }
+
+        // JavaScript 函數來切換到上層圖片
+        function changeToUpperImage() {
+            var image = document.getElementById('parking-lot-image');
+            image.src = "{{ url_for('static', filename='images/map13.png') }}"; // 替換為上層的圖片
+        }
+
+        function goBack() {
+            window.location.href = "{{ url_for('index') }}"; // 使用 url_for 生成首頁的 URL
+        }
+
+        const socket = io();
+    
+        // 設置停車場地圖中第一個停車位的 x 和 y 坐標 (假設為 100, 150)
+        let initialX = 115; // 第一個停車位的 x 坐標
+        let initialY = 550; // 第一個停車位的 y 坐標
+
+        socket.on('update_marker', function(data) {
+            updateMapMarker(data.x, data.y);
+        });
+
+        // 更新標記位置的函數
+        function updateMapMarker(x, y) {
+            const container = document.querySelector('.image-container');
+            let marker = document.querySelector('.marker');
+
+            // 如果標記尚未存在，創建標記
+            if (!marker) {
+                marker = document.createElement('div');
+                marker.className = 'marker';
+                marker.style.position = 'absolute';
+                marker.innerHTML = '<img src="static/images/car2.png" alt="car2" style="width:30px;height:30px;">'; // 使用 car2 圖片作為標記
+                container.appendChild(marker);
+            }
+
+            // 設置標記的位置
+            marker.style.left = `${x}px`;
+            marker.style.top = `${y}px`;
+
+            console.log(`標記已移動到: (${x}, ${y})`);
+        }
+
+        // 頁面加載完成時，將標記放在第一個停車位的位置
+        window.onload = function() {
+            updateMapMarker(initialX, initialY);
+        };
+
+        // 發送停車數據到後端
+        function submitParkingData() {
+            const plateNumber = document.getElementById('plateNumber').value;
+
+            // 發送數據到後端
+            fetch('/submit_parking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    plate_number: plateNumber,
+                    x: currentX,
+                    y: currentY
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('成功提交: ', data);
+            })
+            .catch(error => {
+                console.error('提交失敗: ', error);
+            });
+        }
+
+        
+    </script>
+</head>
+<body>
+    <div class="image-container">
+        <img id="parking-lot-image" src="{{ url_for('static', filename='images/map13.png') }}" alt="停車場" />
+        <div class="button-container">
+            <button class="overlay-button" onclick="document.getElementById('parking-form').style.display='block'">停車</button>
+            <button class="overlay-button" onclick="changeToLowerImage()">下層</button>
+            <button class="overlay-button" onclick="changeToUpperImage()">上層</button>
+            <button class="overlay-button" onclick="goBack()">返回</button>
+        </div>
+    </div>
+
+    <div id="parking-form" style="display: none;">
+        <form id="plate-form" action="/enter" method="POST" onsubmit="return validateForm()">
+            <label for="plate-input">車牌號碼:</label>
+            <input type="text" name="plate_number" id="plate-input" placeholder="請輸入車牌號碼" />
+            <div class="form-buttons">
+                <button type="submit">確定</button>
+                <button type="button" onclick="document.getElementById('parking-form').style.display='none'">取消</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

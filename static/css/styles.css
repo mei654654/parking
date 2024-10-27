@@ -1,0 +1,216 @@
+/* 全局樣式 */
+body {
+    font-family: Arial, sans-serif; /* 設置字體 */
+    margin: 0; /* 去掉預設邊距 */
+    padding: 0; /* 去掉預設內邊距 */
+    text-align: center; /* 讓所有內容水平置中 */
+    background-color: #bdc8c4; /* 背景顏色 */
+}
+
+/* 頁首樣式 */
+header {
+    position: fixed; /* 固定在頂部 */
+    top: 0; /* 靠上 */
+    width: 100%; /* 寬度100% */
+    background-color: #565857; /* 背景顏色 */
+    color: #fff; /* 字體顏色 */
+    padding: 15px; /* 上下內邊距 */
+    z-index: 1000; /* 確保在最上層 */
+    display: flex; /* 使用彈性盒模型 */
+    justify-content: space-between; /* 兩邊對齊 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* Logo樣式 */
+.logo {
+    display: flex; /* 彈性盒模型 */
+    align-items: center; /* 垂直居中 */
+    font-size: 24px; /* 字體大小 */
+}
+
+.logo img {
+    width: 30px; /* 圖片寬度 */
+    margin-right: 10px; /* 右邊距 */
+}
+
+/* 導航樣式 */
+nav ul {
+    list-style: none; /* 去掉項目符號 */
+    margin: 0; /* 去掉預設邊距 */
+    padding: 0; /* 去掉預設內邊距 */
+    display: flex; /* 使用彈性盒模型 */
+}
+
+nav ul li {
+    margin-left: 20px; /* 左邊距 */
+}
+
+nav ul li a {
+    color: #fff; /* 字體顏色 */
+    text-decoration: none; /* 去掉下劃線 */
+    font-size: 16px; /* 字體大小 */
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* 滑鼠懸停時顯示下劃線 */
+}
+
+/* 內容區域樣式 */
+.content {
+    padding: 120px 20px; /* 上下左右內邊距 */
+    text-align: center; /* 內容居中 */
+}
+
+.content img {
+    max-width: 100%; /* 圖片最大寬度 */
+    height: auto; /* 自動調整高度以保持比例 */
+}
+
+/* 藍色按鈕樣式 */
+.button, .overlay-button {
+    padding: 15px 30px; /* 按鈕內邊距 */
+    height: 50px; /* 固定高度 */
+    background-color: #0363caea; /* 藍色背景 */
+    color: #fff; /* 字體顏色 */
+    border: none; /* 去掉邊框 */
+    border-radius: 25px; /* 圓角 */
+    cursor: pointer; /* 手型光標 */
+    font-size: 18px; /* 字體大小 */
+    font-weight: bold; /* 加粗字體 */
+    transition: background-color 0.3s, transform 0.2s; /* 背景顏色和大小過渡 */
+    flex: 1; /* 按鈕平分空間 */
+}
+
+.button:hover, .overlay-button:hover {
+    background-color: #004085d2; /* 懸停時的深藍色 */
+    transform: scale(1.05); /* 懸停時稍微放大 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* 增加陰影效果 */
+}
+
+/* 按鈕容器樣式 */
+.button-container {
+    display: flex; /* 使用彈性盒模型 */
+    justify-content: center; /* 中心對齊 */
+    position: relative; /* 相對定位，讓按鈕在圖片下方 */
+    margin-top: 20px; /* 距離圖片下方的間距 */
+    gap: 15px; /* 按鈕之間的間距 */
+}
+
+
+/* 圖片樣式 */
+.image-container {
+    position: relative; /* 使按鈕可以絕對定位 */
+    display: inline-block; /* 使容器不佔滿整個寬度 */
+    margin-top: 20px; /* 根據需要增加上方間距 */
+    text-align: center; /* 使圖片居中 */
+}
+
+img {
+    max-width: 100%; /* 設定圖片的最大寬度 */
+    height: auto; /* 自動調整高度以保持比例 */
+}
+
+/* 表單樣式 */
+/* 父容器的樣式 */
+#parking-form {
+    display: flex;
+    flex-direction: column; /* 讓子元素縱向排列 */
+    align-items: center; /* 子元素水平居中 */
+    justify-content: center; /* 垂直居中 */
+    position: fixed; /* 固定位置 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 300px; /* 設定表單最大寬度 */
+    width: 100%; /* 保持表單的相對寬度 */
+}
+
+/* 輸入框的樣式 */
+#plate-input {
+    width: 100%; /* 讓輸入框寬度充滿父容器 */
+    max-width: 250px; /* 設定輸入框最大寬度 */
+    padding: 10px;
+    margin: 10px 0; /* 上下間距 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center; /* 內容置中 */
+}
+
+/* 按鈕樣式 */
+button {
+    
+    padding: 12px 24px; /* 更大的內邊距，顯得更大氣 */
+    margin: 5px;
+    background-color: #222; /* 深色背景，質感拉滿 */
+    color: #fff;
+    border: 2px solid #333; /* 細邊框，增加質感 */
+    border-radius: 8px; /* 更圓潤的圓角 */
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease; /* 讓所有過渡效果更平滑 */
+}
+
+button:hover {
+    background-color: #0056b3; /* 懸停時的藍色 */
+    border-color: #0056b3; /* 邊框也跟著變色 */
+    color: #fff;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* 增加懸停時的陰影效果 */
+}
+
+/* 新圖片樣式 */
+.new-image {
+    margin-top: 20px; /* 新圖片上方的間距 */
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* 列方向排列 */
+        align-items: center; /* 垂直居中 */
+        padding: 10px; /* 減小內邊距 */
+    }
+
+    nav ul {
+        flex-direction: column; /* 列方向排列 */
+        align-items: center; /* 垂直居中 */
+    }
+
+    nav ul li {
+        margin-left: 0; /* 去掉左邊距 */
+        margin-bottom: 10px; /* 下方間距 */
+    }
+
+    .buttons {
+        flex-direction: column; /* 列方向排列 */
+    }
+
+    .button, .overlay-button {
+        width: 100%; /* 按鈕佔滿整個寬度 */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 25px; /* 調整Logo圖片大小 */
+    }
+
+    header {
+        padding: 10px; /* 減小內邊距 */
+    }
+
+    .button, .overlay-button {
+        padding: 10px 20px; /* 調整按鈕內邊距 */
+        font-size: 14px; /* 調整字體大小 */
+    }
+
+    /* 表單樣式 */
+    #parking-form {
+        width: 90%; /* 表單寬度 */
+        padding: 15px; /* 減少內邊距 */
+    }
+}

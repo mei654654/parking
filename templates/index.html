@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的動態網站</title>
+    <!-- 使用 Flask 的 url_for 函數來正確引用 CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <!-- 使用 Flask 的 url_for 函數來正確引用圖片 -->
+            <img src="{{ url_for('static', filename='images/car.png') }}" alt="圖示">
+            銘傳大學立體停車場
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#about">關於我們</a></li>
+                <li><a href="#contact">聯絡我們</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content" id="home">
+        <img src="{{ url_for('static', filename='images/net01.png') }}" alt="銘傳大學立體停車場圖片">
+        <h1>歡迎來到銘傳大學立體停車場</h1>
+        <div class="buttons">
+            <a href="http://127.0.0.1:3000/parking" class="button">我要停車</a>
+            <a href="http://127.0.0.1:3000/find" class="button">我要找車</a>
+        </div>
+    </div>
+    <section id="about">
+        <img src="{{ url_for('static', filename='images/about.png') }}" alt="關於我們的圖片">
+    </section>
+    <section id="contact">
+        <h2>聯絡我們</h2>
+        <p>郵件聯絡: 10160713@me.mcu.edu.tw | 電話: 0900219560 | 桃園市龜山區德明路5號</p>
+    </section>
+</body>
+</html>
