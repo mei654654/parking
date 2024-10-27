@@ -1,0 +1,28 @@
+# Python Bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Dependency directories
+.pip/
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Logs
+*.log
+
+# Database files
+*.sqlite3
+
+# Miscellaneous
+.DS_Store
+.env
